@@ -1,34 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { config } from './data/config';
+import { baseArea } from './data/base';
+
+const generations = Object.keys(config);
+const areaList = Object.keys(baseArea);
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  console.log(generations);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'start'}}>
+      <h3>기본 청소구역</h3>
+      {areaList.map(area => {
+        return <div key={area} style={{paddingBottom: '8px'}}>
+          {area}: {baseArea[area].assign.join(',')}
+        </div>
+      })}
+
+      <h3>오늘의 청소구역 배정</h3>
+    </div>
   )
 }
 
