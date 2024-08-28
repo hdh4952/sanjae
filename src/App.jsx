@@ -7,6 +7,8 @@ import { rearrange } from './core/rearrange';
 function App() {
   const [organization, setOrganization] = useState(baseArea);
 
+  organization.sort((a, b) => a.id - b.id);
+
   return (
     <div
       style={{
