@@ -46,7 +46,21 @@ function App() {
           fontWeight: 'bold',
         }}
         onClick={() => {
-          const newOrganization = rearrange(organization);
+          const newOrganization = rearrange(
+            organization,
+            [
+              { name: '김민석', generation: 850 },
+              { name: '주현욱', generation: 856 },
+            ],
+            [
+              { name: '이승환', generation: 858 },
+              { name: '박병언', generation: 859 },
+              { name: '박준영', generation: 858 },
+              { name: '박정욱', generation: 859 },
+              { name: '손현민', generation: 859 },
+              { name: '김서진', generation: 859 },
+            ],
+          );
           setOrganization(() => newOrganization);
         }}
       >

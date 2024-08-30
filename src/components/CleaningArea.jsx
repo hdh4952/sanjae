@@ -1,4 +1,7 @@
 const CleaningArea = ({ areaName, assignedPeople, remove }) => {
+  assignedPeople.sort((p1, p2) => {
+    return p1.generation - p2.generation;
+  });
   return (
     <div
       style={{
