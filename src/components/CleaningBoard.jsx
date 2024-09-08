@@ -8,14 +8,18 @@ const CleaningBoard = ({ title, cleaningAreaList, setCleaningAreaList }) => {
 
   return (
     <>
-      <h2 style={{ width: '95vw', borderBottom: '2px solid black' }}>
+      <h2 style={{ display: 'flex', alignItems: 'center', width: '95vw', borderBottom: '2px solid black' }}>
         {title}
         <button
           style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             height: '32px',
             width: '32px',
             borderRadius: '8px',
             border: 'none',
+            padding: '4px',
             margin: '4px',
             boxSizing: 'border-box',
             backgroundColor: 'rgba(0, 0, 0, 0.3)',

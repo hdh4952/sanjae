@@ -12,11 +12,13 @@ function App() {
   return (
     <div
       style={{
+        height: '100vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'start',
         paddingLeft: '8px',
         paddingRight: '8px',
+        overflowY: 'scroll',
       }}
     >
       {organization &&
@@ -38,6 +40,8 @@ function App() {
         style={{
           height: '48px',
           width: '95vw',
+          padding: '16px',
+          marginBottom: '24px',
           marginTop: '24px',
           backgroundColor: 'tomato',
           border: '3px solid tomato',
