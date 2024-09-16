@@ -1,6 +1,6 @@
 import CleaningArea from './CleaningArea';
 
-const CleaningBoard = ({ title, cleaningAreaList, setCleaningAreaList }) => {
+const CleaningBoard = ({ title, cleaningAreaList, setCleaningAreaList, stateFn, absentPeople }) => {
   const removeCleaningArea = (name) => {
     const newCleaningArea = cleaningAreaList.filter((area) => area.name !== name);
     setCleaningAreaList(newCleaningArea);
@@ -49,6 +49,8 @@ const CleaningBoard = ({ title, cleaningAreaList, setCleaningAreaList }) => {
               key={name}
               areaName={name}
               assignedPeople={assignedPeople}
+              stateFn={stateFn}
+              absentPeople={absentPeople}
               remove={() => removeCleaningArea(name)}
             />
           ))}

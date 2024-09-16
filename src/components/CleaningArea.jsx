@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const CleaningArea = ({ areaName, assignedPeople, remove }) => {
+const CleaningArea = ({ areaName, assignedPeople, remove, stateFn, absentPeople }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -52,13 +52,34 @@ const CleaningArea = ({ areaName, assignedPeople, remove }) => {
                 justifyContent: 'start',
                 alignItems: 'center',
                 flexDirection: 'column',
-                width: '60%',
+                width: '90%',
               }}
             >
+              <h3>{areaName}</h3>
               {assignedPeople.map((p) => {
+                const found = absentPeople.find((x) => x.name === p.name && x.generation === p.generation);
+                let bgColor = 'white';
+                if (found) {
+                  if (found.state === 'work') {
+                    bgColor = 'tomato';
+                  }
+                  if (found.state === 'vacation') {
+                    bgColor = 'skyblue';
+                  }
+                }
                 return (
-                  <div key={p.generation + p.name}>
-                    {p.generation}기 {p.name}
+                  <div
+                    key={p.generation + p.name}
+                    style={{ display: 'flex', backgroundColor: bgColor, justifyContent: 'space-between' }}
+                  >
+                    <div>
+                      {p.generation}기 {p.name}
+                    </div>
+                    <div>
+                      <button onClick={() => stateFn.addOnWork(p)}>근무</button>
+                      <button onClick={() => stateFn.addOnVacation(p)}>휴가</button>
+                      <button onClick={() => stateFn.removeOnAbsent(p)}>정상</button>
+                    </div>
                   </div>
                 );
               })}
@@ -79,15 +100,6 @@ const CleaningArea = ({ areaName, assignedPeople, remove }) => {
               >
                 닫기
               </button>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  closeModal();
-                }}
-              >
-                저장
-              </button>
             </div>
           </div>
         </div>
@@ -95,7 +107,6 @@ const CleaningArea = ({ areaName, assignedPeople, remove }) => {
       <div
         style={{
           width: '30vw',
-          // border: '2px solid black',
           borderRadius: '16px',
           marginRight: '4px',
           marginBottom: '4px',
@@ -109,7 +120,7 @@ const CleaningArea = ({ areaName, assignedPeople, remove }) => {
           console.log(areaName, assignedPeople, 'clicked');
         }}
       >
-        <button
+        {/* <button
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -130,15 +141,28 @@ const CleaningArea = ({ areaName, assignedPeople, remove }) => {
           }}
         >
           x
-        </button>
+        </button> */}
         <div style={{ fontWeight: 'bold', fontSize: 'medium', marginBottom: '4px', borderRadius: '9999px' }}>
           {areaName}
         </div>
-        {assignedPeople.map(({ generation, name }) => (
-          <div key={generation + name}>
-            {generation}기 {name}
-          </div>
-        ))}
+        {assignedPeople.map(({ generation, name }) => {
+          const found = absentPeople.find((x) => x.name === name && x.generation === generation);
+          let bgColor = 'white';
+          if (found) {
+            if (found.state === 'work') {
+              bgColor = 'tomato';
+            }
+            if (found.state === 'vacation') {
+              bgColor = 'skyblue';
+            }
+          }
+
+          return (
+            <div key={generation + name} style={{ backgroundColor: bgColor }}>
+              {generation}기 {name}
+            </div>
+          );
+        })}
       </div>
     </>
   );
