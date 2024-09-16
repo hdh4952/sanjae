@@ -24,31 +24,34 @@ class CleaningSystem {
         return { ...cleaningArea, assignedPeople: filtered };
       });
     });
-  }
 
-  // 피해복구반이 아닌 인원들을 청소인원에 추가
-  add(people) {
-    while (people.length > 0) {
-      this.remainingPeople.push(people.shift());
-    }
+    const obj = this.organization.find((obj) => obj.id === 0);
+    obj.cleaningAreaList.push({
+      name: '근무 or 휴가',
+      isEnter: () => true,
+      maximum: Number.MAX_SAFE_INTEGER,
+      assignedPeople: [...people],
+    });
   }
 
   start() {
     for (let i = 3; i > 1; i--) {
       this.arrange(i);
+      console.log(this.organization);
     }
 
     // 생활관 인원 배치 구현
     const container = this.organization.find((obj) => obj.id === 1);
-    const maxLength = this.remainingPeople.length;
-    for (let remainLength = 0; remainLength < maxLength; remainLength++) {
-      const cmp = { ...this.remainingPeople[remainLength] };
-      for (let i = 0; i < container.cleaningAreaList.length; i++) {
-        const curp = container.cleaningAreaList[i].assignedPeople[0];
-        if (container.cleaningAreaList[i].isEnter(cmp) && curp.generation < cmp.generation) {
-          this.remainingPeople[0] = { ...curp };
-          container.cleaningAreaList[i].assignedPeople.shift();
-          container.cleaningAreaList[i].assignedPeople.push(cmp);
+    for (let i = 0; i < this.remainingPeople.length; i++) {
+      for (let j = 0; j < container.cleaningAreaList.length; j++) {
+        const curp = container.cleaningAreaList[j].assignedPeople[0];
+        if (
+          container.cleaningAreaList[j].isEnter(this.remainingPeople[i]) &&
+          curp.generation < this.remainingPeople[i].generation
+        ) {
+          const temp = { ...curp };
+          container.cleaningAreaList[j].assignedPeople[0] = { ...this.remainingPeople[i] };
+          this.remainingPeople[i] = temp;
         }
       }
     }
