@@ -10,7 +10,7 @@ const CleaningBoard = ({ title, cleaningAreaList, setCleaningAreaList, stateFn, 
     <>
       <h2 style={{ display: 'flex', alignItems: 'center', width: '95vw', borderBottom: '2px solid black' }}>
         {title}
-        <button
+        {/* <button
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -40,7 +40,7 @@ const CleaningBoard = ({ title, cleaningAreaList, setCleaningAreaList, stateFn, 
           }}
         >
           +
-        </button>
+        </button> */}
       </h2>
       <div style={{ width: '95vw', flexWrap: 'wrap', display: 'flex' }}>
         {cleaningAreaList &&
