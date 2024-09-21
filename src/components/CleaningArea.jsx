@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const CleaningArea = ({ areaName, assignedPeople, remove, stateFn, absentPeople }) => {
+const CleaningArea = ({ areaName, assignedPeople, stateFn, absentPeople, remove }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -55,7 +55,25 @@ const CleaningArea = ({ areaName, assignedPeople, remove, stateFn, absentPeople 
                 width: '90%',
               }}
             >
-              <h3>{areaName}</h3>
+              <h3>
+                <span>{areaName}</span>
+                <button
+                  style={{
+                    backgroundColor: 'white',
+                    color: 'red',
+                    border: 'none',
+                    borderRadius: '8px',
+                    padding: '8px',
+                    marginLeft: '32px',
+                  }}
+                  onClick={() => {
+                    remove();
+                    closeModal();
+                  }}
+                >
+                  삭제
+                </button>
+              </h3>
               {assignedPeople.map((p) => {
                 const found = absentPeople.find((x) => x.name === p.name && x.generation === p.generation);
                 let bgColor = 'white';
@@ -120,29 +138,7 @@ const CleaningArea = ({ areaName, assignedPeople, remove, stateFn, absentPeople 
           console.log(areaName, assignedPeople, 'clicked');
         }}
       >
-        {/* <button
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'absolute',
-            top: '-4px',
-            right: '-4px',
-            height: '24px',
-            width: '24px',
-            background: 'tomato',
-            border: 'none',
-            borderRadius: '8px',
-            color: 'white',
-          }}
-          onClick={(e) => {
-            e.preventDefault();
-            remove();
-          }}
-        >
-          x
-        </button> */}
-        <div style={{ fontWeight: 'bold', fontSize: 'medium', marginBottom: '4px', borderRadius: '9999px' }}>
+        <div style={{ fontWeight: 'bold', fontSize: 'medium', marginBottom: '8px', borderRadius: '9999px' }}>
           {areaName}
         </div>
         {assignedPeople.map(({ generation, name }) => {

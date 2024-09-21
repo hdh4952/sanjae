@@ -1,11 +1,6 @@
 import CleaningArea from './CleaningArea';
 
-const CleaningBoard = ({ title, cleaningAreaList, setCleaningAreaList, stateFn, absentPeople }) => {
-  const removeCleaningArea = (name) => {
-    const newCleaningArea = cleaningAreaList.filter((area) => area.name !== name);
-    setCleaningAreaList(newCleaningArea);
-  };
-
+const CleaningBoard = ({ title, cleaningAreaList, stateFn, absentPeople, removeArea }) => {
   return (
     <>
       <h2 style={{ display: 'flex', alignItems: 'center', width: '95vw', borderBottom: '2px solid black' }}>
@@ -51,7 +46,7 @@ const CleaningBoard = ({ title, cleaningAreaList, setCleaningAreaList, stateFn, 
               assignedPeople={assignedPeople}
               stateFn={stateFn}
               absentPeople={absentPeople}
-              remove={() => removeCleaningArea(name)}
+              remove={() => removeArea(name)}
             />
           ))}
       </div>
