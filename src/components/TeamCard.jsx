@@ -46,9 +46,11 @@ const TeamCard = ({ team }) => {
         <div style={{ fontWeight: 'bold', fontSize: 'medium', marginBottom: '8px', borderRadius: '9999px' }}>
           {team.name}
         </div>
-        {team.people.map((person) => (
-          <PersonCard key={person.generation + person.name} person={person} />
-        ))}
+        {team.people
+          .sort((a, b) => b.compareTo(a))
+          .map((person) => (
+            <PersonCard key={person.generation + person.name} person={person} />
+          ))}
       </div>
     </>
   );
