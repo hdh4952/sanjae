@@ -37,7 +37,6 @@ class CleaningSystem {
   start() {
     for (let i = 3; i > 1; i--) {
       this.arrange(i);
-      console.log(this.organization);
     }
 
     // 생활관 인원 배치 구현

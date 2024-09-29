@@ -1,18 +1,20 @@
 import { Person } from './Person';
 
-export class Team {
+export class Room {
   #name;
-  #limit;
   #people;
-  #isEnter;
-  #grade;
 
-  constructor(name, limit, people = [], isEnter = () => true, grade = 0) {
+  constructor(name, people) {
     this.#name = name;
-    this.#limit = limit;
     this.#people = people;
-    this.#isEnter = isEnter;
-    this.#grade = grade;
+  }
+
+  isLiving(person) {
+    if (!(person instanceof Person)) {
+      throw new Error('person is not instance of Person');
+    }
+
+    return this.#people.some((p) => p.compareTo(person) === 0);
   }
 
   insertPerson(person) {
@@ -41,31 +43,7 @@ export class Team {
     return this.#name;
   }
 
-  get limit() {
-    return this.#limit;
-  }
-
-  set limit(num) {
-    this.#limit = num;
-  }
-
   get people() {
     return this.#people;
-  }
-
-  get isEnter() {
-    return this.#isEnter;
-  }
-
-  set isEnter(func) {
-    this.#isEnter = func;
-  }
-
-  get grade() {
-    return this.#grade;
-  }
-
-  set grade(g) {
-    this.#grade = g;
   }
 }

@@ -28,6 +28,25 @@ function App() {
     setAbsentPeople((prev) => prev.filter((e) => !(e.name === person.name && e.generation === person.generation)));
   };
 
+  const removeArea = (name) => {
+    const newOrganization = organization;
+    const toArea = newOrganization.find((obj) => obj.id === 4);
+    for (let i = 0; i < newOrganization.length; i++) {
+      const found = newOrganization[i].cleaningAreaList.find((area) => area.name === name);
+      if (!found) {
+        continue;
+      }
+
+      while (found.assignedPeople.length > 0) {
+        const person = found.assignedPeople.pop();
+        toArea.cleaningAreaList[0].assignedPeople.push(person);
+      }
+      newOrganization[i].cleaningAreaList = newOrganization[i].cleaningAreaList.filter((area) => area.name !== name);
+    }
+
+    setOrganization(() => newOrganization);
+  };
+
   organization.sort((a, b) => a.id - b.id);
   return (
     <div
@@ -77,6 +96,7 @@ function App() {
               );
               setOrganization(() => newOrganization);
             }}
+            removeArea={removeArea}
           />
         ))}
       <button

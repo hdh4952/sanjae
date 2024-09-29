@@ -40,4 +40,8 @@ export class Person {
   get state() {
     return this.#state;
   }
+
+  set state(s) {
+    this.#state = s;
+  }
 }
