@@ -174,9 +174,6 @@ export class ArrangeSystem {
   }
 
   get result() {
-    console.log(this.#organization);
-    console.log(this.#remainingPeople);
-    console.log(this.#rooms);
     const newOrganization = (() => {
       const groups = this.#organization.groups.map((group) => {
         const groupName = group.name;

@@ -20,11 +20,25 @@ const RefactApp = () => {
   const [rooms, setRooms] = useState(statusOfPersonnel);
   const [page, setPage] = useState(0);
 
+  const addPerson = (person) => {
+    setOrgan((prev) => {
+      const group = prev.groups.find((group) => group.grade === 4);
+      group.teams[0].insertPerson(person);
+      return prev;
+    });
+
+    setRooms((prev) => {
+      const room = prev.find((room) => room.name === '6 생활관');
+      room.insertPerson(person);
+      return [...prev];
+    });
+  };
+
   return (
     <div style={appStyle}>
       <Tooltip page={page} setPage={setPage} />
       {page === 0 && <OrganizationCard organ={organ} setOrgan={setOrgan} rooms={rooms} />}
-      {page === 1 && <StatusCard rooms={rooms} setRoom={setRooms} />}
+      {page === 1 && <StatusCard rooms={rooms} setRoom={setRooms} addPerson={addPerson} />}
     </div>
   );
 };

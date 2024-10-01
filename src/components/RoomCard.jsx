@@ -12,7 +12,7 @@ const RoomCard = ({ name, people }) => {
         boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
       }}
     >
-      <div style={{ fontWeight: 'bold', fontSize: 'medium', marginBottom: '8px', borderRadius: '9999px' }}>{name}</div>
+      <div style={{ fontWeight: 'bold', fontSize: 'medium', marginBottom: '8px' }}>{name}</div>
 
       {people.map((person) => (
         <div key={person.generation + person.name}>
