@@ -4,7 +4,6 @@ import RoomCard from './RoomCard';
 const StatusCard = ({ rooms, addPerson }) => {
   return (
     <>
-      <span>총원 {}</span>
       <div style={{ display: 'flex', flexWrap: 'wrap', width: '95vw', padding: '8px' }}>
         {rooms.map((room) => {
           return <RoomCard key={room.name} name={room.name} people={room.people} />;

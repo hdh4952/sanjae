@@ -33,8 +33,16 @@ export class ArrangeSystem {
       });
     });
 
-    const team = new Team('휴가 or 근무', Number.MAX_SAFE_INTEGER, people);
-    this.#organization.groups.find((group) => group.grade === 0).teams.push(team);
+    const team = this.#organization.groups
+      .find((group) => group.grade === 0)
+      ?.teams.find((team) => team.name === '휴가 or 근무');
+    if (team) {
+      team.people.push(...people);
+      return;
+    }
+
+    const createdTeam = new Team('휴가 or 근무', Number.MAX_SAFE_INTEGER, people);
+    this.#organization.groups.find((group) => group.grade === 0).teams.push(createdTeam);
   }
 
   findRemainingPeople() {

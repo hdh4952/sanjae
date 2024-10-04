@@ -28,6 +28,8 @@ const Modal = ({ children, closeModal }) => {
       >
         <div
           style={{
+            height: '80%',
+            overflowY: 'scroll',
             display: 'flex',
             justifyContent: 'start',
             alignItems: 'center',
