@@ -4,7 +4,7 @@ export class Person {
   #state; // 일과, 휴가, 근무 {on, off, work}
 
   constructor(generation, name, state = 'on') {
-    this.#generation = generation;
+    this.#generation = Number.parseInt(generation);
     this.#name = name;
     this.#state = state;
   }

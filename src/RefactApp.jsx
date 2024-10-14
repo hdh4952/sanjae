@@ -34,11 +34,29 @@ const RefactApp = () => {
     });
   };
 
+  const removePerson = (person) => {
+    setOrgan((prev) => {
+      prev.groups.forEach((group) => {
+        group.teams.forEach((team) => {
+          team.removePerson(person);
+        });
+      });
+
+      return prev;
+    });
+
+    setRooms((prev) => {
+      const room = prev.find((room) => room.isLiving(person));
+      room.removePerson(person);
+      return [...prev];
+    });
+  };
+
   return (
     <div style={appStyle}>
       <Tooltip page={page} setPage={setPage} />
       {page === 0 && <OrganizationCard organ={organ} setOrgan={setOrgan} rooms={rooms} />}
-      {page === 1 && <StatusCard rooms={rooms} setRoom={setRooms} addPerson={addPerson} />}
+      {page === 1 && <StatusCard rooms={rooms} setRoom={setRooms} addPerson={addPerson} removePerson={removePerson} />}
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import AddPersonForm from './AddPersonForm';
+import RemovePersonForm from './RemovePersonForm';
 import RoomCard from './RoomCard';
 
-const StatusCard = ({ rooms, addPerson }) => {
+const StatusCard = ({ rooms, addPerson, removePerson }) => {
   return (
     <>
       <div style={{ display: 'flex', flexWrap: 'wrap', width: '95vw', padding: '8px' }}>
@@ -19,8 +20,14 @@ const StatusCard = ({ rooms, addPerson }) => {
           marginTop: '32px',
         }}
       >
-        <div style={{ fontWeight: 'bold', fontSize: 'large', paddingLeft: '32px' }}>인원 추가</div>
-        <AddPersonForm addPerson={addPerson} />
+        <div>
+          <div style={{ fontWeight: 'bold', fontSize: 'large', paddingLeft: '32px' }}>인원 추가</div>
+          <AddPersonForm addPerson={addPerson} />
+        </div>
+        <div>
+          <div style={{ fontWeight: 'bold', fontSize: 'large', paddingLeft: '32px' }}>인원 삭제</div>
+          <RemovePersonForm removePerson={removePerson} />
+        </div>
       </div>
     </>
   );
