@@ -3,9 +3,18 @@ import { DndContext } from '@dnd-kit/core';
 import DroppableAreaCard from './components/dnd/DroppableAreaCard';
 import { Person } from './types/Person';
 import { useState } from 'react';
+import { Dialog, DialogContent, DialogFooter, DialogHeader } from './components/ui/dialog';
+import { DialogTrigger } from './components/ui/dialog';
 import { Button } from './components/ui/button';
+import { DialogTitle } from '@radix-ui/react-dialog';
+import { Label } from './components/ui/label';
+import { Input } from './components/ui/input';
 
 function App() {
+  const [open, setOpen] = useState(false);
+  const [generation, setGeneration] = useState('');
+  const [name, setName] = useState('');
+
   const [people, setPeople] = useState<Person[]>([
     { generation: 857, name: '공군1', assign: '공공실A' },
     { generation: 857, name: '공군2', assign: '공공실A' },
@@ -53,6 +62,48 @@ function App() {
           <DroppableAreaCard title="휴가or근무" people={people} />
         </div>
       </DndContext>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button className="fixed bottom-0">인원 추가</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>인원 추가하기</DialogTitle>
+          </DialogHeader>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              changeAssign({ generation: parseInt(generation), name, assign: '' }, '휴가or근무');
+              setGeneration('');
+              setName('');
+              setOpen(false);
+            }}
+          >
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="generation" className="text-right">
+                  기수
+                </Label>
+                <Input
+                  id="generation"
+                  value={generation}
+                  className="col-span-3"
+                  onChange={(e) => setGeneration(e.target.value)}
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="name" className="text-right">
+                  이름
+                </Label>
+                <Input id="name" value={name} className="col-span-3" onChange={(e) => setName(e.target.value)} />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="submit">추가하기</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
