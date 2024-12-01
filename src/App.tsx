@@ -1,5 +1,5 @@
 import './App.css';
-import { DndContext } from '@dnd-kit/core';
+import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import DroppableAreaCard from './components/dnd/DroppableAreaCard';
 import { Person } from './types/Person';
 import { useState } from 'react';
@@ -16,32 +16,34 @@ function App() {
   const [name, setName] = useState('');
 
   const [people, setPeople] = useState<Person[]>([
-    { generation: 853, name: '강민재', assign: '내무실' },
+    { generation: 852, name: '손수호', assign: '내무실' },
     { generation: 853, name: '박지원', assign: '내무실' },
+    { generation: 852, name: '이승준', assign: '내무실' },
+    { generation: 853, name: '강민재', assign: '내무실' },
     { generation: 853, name: '박민우', assign: '내무실' },
     { generation: 853, name: '이동근', assign: '내무실' },
-    { generation: 854, name: '강민석', assign: '공공실A' },
-    { generation: 854, name: '김한결', assign: '공공실B' },
-    { generation: 854, name: '유예찬', assign: '생활관주변' },
-    { generation: 855, name: '박준영', assign: '복도' },
-    { generation: 855, name: '심현성', assign: '공공실B' },
     { generation: 856, name: '김재헌', assign: '복도' },
-    { generation: 856, name: '주현욱', assign: '복도' },
-    { generation: 856, name: '최민제', assign: '복도' },
-    { generation: 856, name: '홍승환', assign: '1층화장실' },
-    { generation: 857, name: '이훈영', assign: '1층화장실' },
-    { generation: 857, name: '한대희', assign: '1층화장실' },
-    { generation: 858, name: '김지환', assign: '1층화장실' },
-    { generation: 858, name: '이강현', assign: '2층화장실' },
+    { generation: 857, name: '한대희', assign: '복도' },
+    { generation: 858, name: '김지환', assign: '복도' },
+    { generation: 860, name: '박호현', assign: '복도' },
+    { generation: 854, name: '김한결', assign: '공공실A' },
     { generation: 858, name: '이상준', assign: '공공실A' },
+    { generation: 854, name: '유예찬', assign: '공공실B' },
     { generation: 858, name: '최진서', assign: '공공실B' },
-    { generation: 859, name: '김서진', assign: '2층화장실' },
-    { generation: 859, name: '박병언', assign: '2층화장실' },
-    { generation: 859, name: '박정욱', assign: '2층화장실' },
-    { generation: 860, name: '김규민', assign: '세면장' },
-    { generation: 860, name: '박호현', assign: '세면장' },
-    { generation: 861, name: '이성원', assign: '세면장' },
+    { generation: 854, name: '강민석', assign: '생활관주변' },
     { generation: 861, name: '한승재', assign: '생활관주변' },
+    { generation: 855, name: '박준영', assign: '세면장' },
+    { generation: 856, name: '최민제', assign: '세면장' },
+    { generation: 859, name: '박정욱', assign: '세면장' },
+    { generation: 861, name: '이성원', assign: '세면장' },
+    { generation: 856, name: '주현욱', assign: '1층화장실' },
+    { generation: 857, name: '이훈영', assign: '1층화장실' },
+    { generation: 858, name: '이강현', assign: '1층화장실' },
+    { generation: 859, name: '박병언', assign: '1층화장실' },
+    { generation: 855, name: '심현성', assign: '2층화장실' },
+    { generation: 856, name: '홍승환', assign: '2층화장실' },
+    { generation: 859, name: '김서진', assign: '2층화장실' },
+    { generation: 860, name: '김규민', assign: '2층화장실' },
   ]);
 
   const changeAssign = (person: Person, toArea: string): void => {
@@ -49,10 +51,10 @@ function App() {
     setPeople(() => [...filtered, { ...person, assign: toArea }]);
   };
 
-  const handleDragEnd = (event) => {
-    if (event.over) {
-      const toArea: string = event.over.id;
-      const person: Person = event.active.data.current;
+  const handleDragEnd = (event: DragEndEvent) => {
+    if (event.over && event.active.data.current) {
+      const toArea: string = event.over.id as string;
+      const person: Person = event.active.data.current as Person;
       changeAssign(person, toArea);
     }
   };

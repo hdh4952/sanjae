@@ -6,8 +6,6 @@ import { OverlayProvider } from 'overlay-kit';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <OverlayProvider>
-      <App />
-    </OverlayProvider>
+   <App />
   </StrictMode>,
 );
